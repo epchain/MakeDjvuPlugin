@@ -1,0 +1,23 @@
+allprojects {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+}
+
+ext {
+  jdkVersion = JavaVersion.VERSION_1_8
+
+  junit5PlatformVersion = '1.0.2'
+  junit5JupiterVersion = '5.0.2'
+  openTest4jVersion = '1.0.0'
+
+  deps = [
+    // Tests
+    jUnit4:                 'junit:junit:4.12',
+    jUnit5PlatformLauncher: "org.junit.platform:junit-platform-launcher:$junit5PlatformVersion",
+    jUnit5JupiterApi:       "org.junit.jupiter:junit-jupiter-api:$junit5JupiterVersion",
+    jUnit5JupiterEngine:    "org.junit.jupiter:junit-jupiter-engine:$junit5JupiterVersion",
+    openTest4j:             "org.opentest4j:opentest4j:$openTest4jVersion"
+  ]
+}

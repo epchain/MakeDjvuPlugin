@@ -1,0 +1,42 @@
+plugins {
+  id 'java'
+  id 'maven'
+}
+
+dependencies {
+  compile gradleApi()
+  // Tests
+  testImplementation deps.jUnit5PlatformLauncher
+  testImplementation deps.jUnit5JupiterApi
+  testImplementation deps.jUnit5JupiterEngine
+  testImplementation deps.openTest4j
+}
+
+group 'com.epchain'
+version '1.1.0'
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
+
+jar {
+  manifest {
+    attributes( "plugin-version": version )
+  }
+}
+
+uploadArchives {
+  doFirst {
+    String envMavenRepo = System.getenv( "MAVEN_REPO" )
+    boolean noEnvMavenRepo = envMavenRepo == null
+    if ( noEnvMavenRepo ) envMavenRepo = file( "$rootDir/maven" ).path
+
+    logger.warn "MAVEN_REPO environment variable " + ( (noEnvMavenRepo) ? "not found" : "found" )
+    logger.warn "Plugin artifact will be published to: $envMavenRepo"
+
+    repositories {
+      mavenDeployer {
+        repository url: uri( envMavenRepo )
+      }
+    }
+  }
+}

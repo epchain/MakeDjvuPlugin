@@ -1,0 +1,48 @@
+buildscript {
+  repositories {
+    maven {
+      url uri( System.getenv("MAVEN_REPO") ) // or any other directory for repo
+    }
+  }
+
+  dependencies {
+    classpath 'com.epchain:makedjvuplugin:+'
+  }
+}
+
+apply plugin: 'makedjvuplugin'
+
+// optional
+/*
+settings {
+  workDir = file( 'work' )
+  outDir = file( 'converted' )
+}
+*/
+
+books {
+  pngbook {
+    bookFile = file( "books/pngbook/pngbook.pdf" )
+    bookmarksFile = file( "books/pngbook/bookmarks.lsp" ) // optional
+    outDir = file( "books/pngbook" ) // optional
+    skip = false // optional
+    keepIntermediates = true // optional
+    forceCleanup = false // optional
+  }
+
+  jpgbook {
+    bookFile = file( "books/jpgbook/jpgbook.pdf" )
+    bookmarksFile = file( "books/jpgbook/bookmarks.lsp" ) // optional
+    outDir = file( "books/jpgbook" ) // optional
+    skip = false // optional
+    keepIntermediates = true // optional
+  }
+
+  imgbook {
+    bookFile = file( "books/imgbook" )
+    bookmarksFile = file( "books/imgbook/bookmarks.lsp" ) // optional
+    outDir = file( "books/imgbook" ) // optional
+    skip = false // optional
+    keepIntermediates = true // ignored
+  }
+}
